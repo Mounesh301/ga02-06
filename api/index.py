@@ -2,107 +2,407 @@ import json
 from urllib.parse import urlparse, parse_qs
 from http.server import BaseHTTPRequestHandler
 
-data = [
-  { "name": "3hC", "marks": 96 },
-  { "name": "E4XaBjcGjr", "marks": 96 },
-  { "name": "H3Zl9ns", "marks": 68 },
-  { "name": "tywOk", "marks": 47 },
-  { "name": "HkxkUOkz", "marks": 0 },
-  { "name": "PwENC02Jad", "marks": 67 },
-  { "name": "uvQ", "marks": 74 },
-  { "name": "apFc8fIk", "marks": 12 },
-  { "name": "kRDHh5SUI", "marks": 60 },
-  { "name": "gOLi", "marks": 92 },
-  { "name": "Xh3e", "marks": 74 },
-  { "name": "XY2", "marks": 9 },
-  { "name": "ijDnnLG", "marks": 53 },
-  { "name": "Fa75SVNiV", "marks": 61 },
-  { "name": "eADmV", "marks": 91 },
-  { "name": "Mp2HlL3", "marks": 37 },
-  { "name": "wwRRQ", "marks": 77 },
-  { "name": "yKGtJSf0", "marks": 18 },
-  { "name": "5r9i", "marks": 17 },
-  { "name": "7u", "marks": 62 },
-  { "name": "qK", "marks": 78 },
-  { "name": "i", "marks": 16 },
-  { "name": "z", "marks": 89 },
-  { "name": "uIQvh", "marks": 42 },
-  { "name": "RBKEyU", "marks": 16 },
-  { "name": "Q", "marks": 11 },
-  { "name": "y", "marks": 28 },
-  { "name": "Ml8Yg4k3g", "marks": 32 },
-  { "name": "Zu1VsDLx", "marks": 14 },
-  { "name": "Bp68OTFU", "marks": 74 },
-  { "name": "oz8M8Z3Gw", "marks": 27 },
-  { "name": "kPlvw6vZ1V", "marks": 48 },
-  { "name": "wXRYi0nai", "marks": 3 },
-  { "name": "McT96PgH9", "marks": 84 },
-  { "name": "vYadv9GWq1", "marks": 42 },
-  { "name": "9PX", "marks": 70 },
-  { "name": "ab", "marks": 14 },
-  { "name": "29aEEfo", "marks": 11 },
-  { "name": "a4", "marks": 88 },
-  { "name": "5", "marks": 59 },
-  { "name": "uYWXyj", "marks": 13 },
-  { "name": "Ut5906zRiY", "marks": 56 },
-  { "name": "ss5ud", "marks": 15 },
-  { "name": "aoTl5gy", "marks": 46 },
-  { "name": "M4", "marks": 68 },
-  { "name": "b8xukP", "marks": 59 },
-  { "name": "66I1Yep", "marks": 15 },
-  { "name": "o8V4BCcX7", "marks": 0 },
-  { "name": "ANi0wx", "marks": 46 },
-  { "name": "0fZ", "marks": 79 },
-  { "name": "MqvK", "marks": 92 },
-  { "name": "Lv", "marks": 35 },
-  { "name": "sxo", "marks": 55 },
-  { "name": "6", "marks": 64 },
-  { "name": "Kz0XVKabR", "marks": 62 },
-  { "name": "I73SabYCOE", "marks": 17 },
-  { "name": "7", "marks": 23 },
-  { "name": "q", "marks": 84 },
-  { "name": "DwVquNi", "marks": 25 },
-  { "name": "2sMwjn5S", "marks": 83 },
-  { "name": "b57RhiX", "marks": 32 },
-  { "name": "i9EHj", "marks": 18 },
-  { "name": "etnbJt", "marks": 52 },
-  { "name": "6hznA", "marks": 27 },
-  { "name": "cdauL", "marks": 20 },
-  { "name": "7Tf", "marks": 12 },
-  { "name": "zb2Fd7P", "marks": 17 },
-  { "name": "tF", "marks": 38 },
-  { "name": "ApaSN", "marks": 41 },
-  { "name": "lHwFFf", "marks": 47 },
-  { "name": "LsHg1jV", "marks": 64 },
-  { "name": "Ce5Rmc", "marks": 18 },
-  { "name": "pn2", "marks": 72 },
-  { "name": "kp", "marks": 44 },
-  { "name": "G3", "marks": 87 },
-  { "name": "ZLIVpmRFKx", "marks": 50 },
-  { "name": "wtXlh0GS", "marks": 32 },
-  { "name": "rMDJcd", "marks": 4 },
-  { "name": "FChT", "marks": 36 },
-  { "name": "pqFZ", "marks": 44 },
-  { "name": "Wd6ASlh", "marks": 83 },
-  { "name": "2xl6m7", "marks": 85 },
-  { "name": "OOKMhNlN6s", "marks": 0 },
-  { "name": "RLyJ", "marks": 95 },
-  { "name": "md", "marks": 38 },
-  { "name": "dryD5M", "marks": 94 },
-  { "name": "DacoAzOQ", "marks": 87 },
-  { "name": "S5", "marks": 28 },
-  { "name": "mA", "marks": 54 },
-  { "name": "NP6p6Jnm", "marks": 48 },
-  { "name": "MueVR1", "marks": 98 },
-  { "name": "6R", "marks": 26 },
-  { "name": "URAjW", "marks": 71 },
-  { "name": "ESsgwMoqiN", "marks": 41 },
-  { "name": "QN1jZMP", "marks": 67 },
-  { "name": "jqnu", "marks": 59 },
-  { "name": "Z5zjAPq0", "marks": 41 },
-  { "name": "EpXXcas", "marks": 74 },
-  { "name": "Pnf", "marks": 54 },
-  { "name": "rrX9Mfp", "marks": 90 }
+data =[
+    {
+        "name": "76CScRD",
+        "marks": 68
+    },
+    {
+        "name": "5rsez0E",
+        "marks": 58
+    },
+    {
+        "name": "g5f9xs",
+        "marks": 72
+    },
+    {
+        "name": "G",
+        "marks": 40
+    },
+    {
+        "name": "4KdO8sBMSJ",
+        "marks": 67
+    },
+    {
+        "name": "dY1Hd",
+        "marks": 58
+    },
+    {
+        "name": "U0du6",
+        "marks": 20
+    },
+    {
+        "name": "jIs",
+        "marks": 14
+    },
+    {
+        "name": "V",
+        "marks": 7
+    },
+    {
+        "name": "oi935h07",
+        "marks": 66
+    },
+    {
+        "name": "M",
+        "marks": 53
+    },
+    {
+        "name": "il4Oc",
+        "marks": 84
+    },
+    {
+        "name": "ggttt",
+        "marks": 7
+    },
+    {
+        "name": "yUdCxge",
+        "marks": 97
+    },
+    {
+        "name": "DiGuG1Wdo",
+        "marks": 66
+    },
+    {
+        "name": "guiEGoYojP",
+        "marks": 78
+    },
+    {
+        "name": "iZhbMLR",
+        "marks": 54
+    },
+    {
+        "name": "MrBZd1",
+        "marks": 97
+    },
+    {
+        "name": "8",
+        "marks": 98
+    },
+    {
+        "name": "T423A",
+        "marks": 22
+    },
+    {
+        "name": "9dgI",
+        "marks": 79
+    },
+    {
+        "name": "xvZRd0ZfP",
+        "marks": 36
+    },
+    {
+        "name": "ctG6gVK8bk",
+        "marks": 28
+    },
+    {
+        "name": "l0",
+        "marks": 38
+    },
+    {
+        "name": "sTSbQ",
+        "marks": 57
+    },
+    {
+        "name": "gkcwCZ",
+        "marks": 5
+    },
+    {
+        "name": "F",
+        "marks": 17
+    },
+    {
+        "name": "qWIW",
+        "marks": 1
+    },
+    {
+        "name": "N2x",
+        "marks": 78
+    },
+    {
+        "name": "09TeM",
+        "marks": 80
+    },
+    {
+        "name": "FG3sBDA",
+        "marks": 83
+    },
+    {
+        "name": "n7ruE3fof",
+        "marks": 43
+    },
+    {
+        "name": "OSVYPZRJdj",
+        "marks": 0
+    },
+    {
+        "name": "7I6Y9MDg",
+        "marks": 15
+    },
+    {
+        "name": "9lSJCeOy5I",
+        "marks": 62
+    },
+    {
+        "name": "jZYFEkNU8h",
+        "marks": 64
+    },
+    {
+        "name": "alBh",
+        "marks": 80
+    },
+    {
+        "name": "iQAIRs23IU",
+        "marks": 48
+    },
+    {
+        "name": "NBuM",
+        "marks": 68
+    },
+    {
+        "name": "FD1r",
+        "marks": 30
+    },
+    {
+        "name": "9EDFuQ",
+        "marks": 26
+    },
+    {
+        "name": "FdcLTfC8E",
+        "marks": 47
+    },
+    {
+        "name": "qQMd",
+        "marks": 74
+    },
+    {
+        "name": "SC",
+        "marks": 0
+    },
+    {
+        "name": "1NUH2dLJG",
+        "marks": 46
+    },
+    {
+        "name": "pp8v",
+        "marks": 21
+    },
+    {
+        "name": "UfZ",
+        "marks": 0
+    },
+    {
+        "name": "04",
+        "marks": 94
+    },
+    {
+        "name": "um5t",
+        "marks": 11
+    },
+    {
+        "name": "J7Vz",
+        "marks": 52
+    },
+    {
+        "name": "Lc08uK2jvR",
+        "marks": 52
+    },
+    {
+        "name": "fI",
+        "marks": 12
+    },
+    {
+        "name": "nOD",
+        "marks": 81
+    },
+    {
+        "name": "0",
+        "marks": 35
+    },
+    {
+        "name": "SYT2g",
+        "marks": 50
+    },
+    {
+        "name": "UB",
+        "marks": 75
+    },
+    {
+        "name": "DGNtW1PWN",
+        "marks": 10
+    },
+    {
+        "name": "x9rvIMD3",
+        "marks": 71
+    },
+    {
+        "name": "Y",
+        "marks": 61
+    },
+    {
+        "name": "Ce7Bry",
+        "marks": 56
+    },
+    {
+        "name": "NbWK0j",
+        "marks": 55
+    },
+    {
+        "name": "wtDYZfgF",
+        "marks": 77
+    },
+    {
+        "name": "xuF1",
+        "marks": 58
+    },
+    {
+        "name": "h",
+        "marks": 17
+    },
+    {
+        "name": "8yviy",
+        "marks": 91
+    },
+    {
+        "name": "S04PO8Ltc",
+        "marks": 92
+    },
+    {
+        "name": "FhBpQSK",
+        "marks": 22
+    },
+    {
+        "name": "t0YWTmG",
+        "marks": 41
+    },
+    {
+        "name": "sBrOCkE",
+        "marks": 15
+    },
+    {
+        "name": "z",
+        "marks": 15
+    },
+    {
+        "name": "IsP73",
+        "marks": 91
+    },
+    {
+        "name": "uwEUj",
+        "marks": 1
+    },
+    {
+        "name": "Jhwd1UP",
+        "marks": 64
+    },
+    {
+        "name": "6",
+        "marks": 27
+    },
+    {
+        "name": "S",
+        "marks": 44
+    },
+    {
+        "name": "e",
+        "marks": 39
+    },
+    {
+        "name": "VVjJyzStU",
+        "marks": 34
+    },
+    {
+        "name": "K4",
+        "marks": 78
+    },
+    {
+        "name": "b3P",
+        "marks": 62
+    },
+    {
+        "name": "3lGNU",
+        "marks": 92
+    },
+    {
+        "name": "D",
+        "marks": 38
+    },
+    {
+        "name": "yjQj0e",
+        "marks": 31
+    },
+    {
+        "name": "5Ub8Z",
+        "marks": 33
+    },
+    {
+        "name": "ROWCQAo",
+        "marks": 58
+    },
+    {
+        "name": "p86",
+        "marks": 19
+    },
+    {
+        "name": "pWAEM8",
+        "marks": 70
+    },
+    {
+        "name": "WPUiDZeL",
+        "marks": 42
+    },
+    {
+        "name": "Ji03BgbJu",
+        "marks": 2
+    },
+    {
+        "name": "r",
+        "marks": 98
+    },
+    {
+        "name": "J",
+        "marks": 76
+    },
+    {
+        "name": "0TgByU5cKz",
+        "marks": 17
+    },
+    {
+        "name": "q",
+        "marks": 97
+    },
+    {
+        "name": "mSL4YbnL1",
+        "marks": 58
+    },
+    {
+        "name": "FmP6",
+        "marks": 82
+    },
+    {
+        "name": "v6v4",
+        "marks": 18
+    },
+    {
+        "name": "9dXfs",
+        "marks": 0
+    },
+    {
+        "name": "C",
+        "marks": 7
+    },
+    {
+        "name": "AZSz1T",
+        "marks": 57
+    },
+    {
+        "name": "55uz0wPza",
+        "marks": 32
+    },
+    {
+        "name": "7WJ2pCN",
+        "marks": 18
+    }
 ]
 class handler(BaseHTTPRequestHandler):
     def do_GET(self):
